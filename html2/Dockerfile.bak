@@ -1,0 +1,14 @@
+# Use a Windows-based image as the base
+FROM mcr.microsoft.com/windows/nanoserver:1809
+
+# Create a directory to store your HTML file
+WORKDIR /app
+
+# Copy your HTML file and any other assets
+COPY . /app/
+
+# Expose port 80 (assuming your web server listens on port 80)
+EXPOSE 80
+
+# Start a basic web server (e.g., PowerShell)
+CMD ["powershell", "Start-Process", "-NoNewWindow", "w3svc"]

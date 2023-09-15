@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: emptest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emptest
+  namespace: emptest
+  labels:
+    app: emptest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emptest
+  template:
+    metadata:
+      labels:
+        app: emptest
+    spec:
+      nodeSelector:
+       kubernetes.io/os: linux
+      containers:
+        - name: admin
+          imagePullPolicy: Always
+          image: dhawalthakkar/empid:v3
+          resources: {}
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: emptest
+  namespace: emptest
+  labels:
+    app: emptest
+spec:
+  selector:
+    app: emptest
+  ports:
+    - port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emptest
+  namespace: emptest
+  labels:
+    name: emptest
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    ingress.kubernetes.io/proxy-body-size: 100m
+    kubernetes.io/tls-acme: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - emptest.kubily.com 
+    secretName: kubiliy-emptest-tls
+  rules:
+    - host: emptest.kubily.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: emptest
+                port:
+                  number: 80

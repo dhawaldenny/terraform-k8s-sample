@@ -1,0 +1,5 @@
+docker build -t my-html-app .
+docker run my-html-app -p 80:8088
+
+docker build -t webserver-image:v1 .
+docker run -d -it -p 8085:80 webserver-image:v1
