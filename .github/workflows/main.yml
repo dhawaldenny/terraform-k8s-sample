@@ -32,7 +32,7 @@ jobs:
         with:
           file: ./html2/Dockerfile
           push: true
-          tags: dhawalthakkar/empid:${{ steps.vars.outputs.sha_short }},dhawalthakkar/empid::latest
+          tags: dhawalthakkar/empid:${{ steps.vars.outputs.sha_short }},dhawalthakkar/empid:latest
 
       - name: Update Kubernetes Deployment
         uses: actions-hub/kubectl@master
