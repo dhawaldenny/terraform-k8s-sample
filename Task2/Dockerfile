@@ -5,4 +5,4 @@
 
 
 FROM nginx:alpine
-COPY ./html2 /usr/share/nginx/html
+COPY ./Task2 /usr/share/nginx/html
