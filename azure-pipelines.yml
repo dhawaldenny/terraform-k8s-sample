@@ -12,9 +12,14 @@ pool:
 steps:
 - task: UseNode@1
   inputs:
-    versionSpec: 14.x
     checkLatest: true
-- task: PublishBuildArtifacts@1
+
+- script: |
+      # Copy static website files to the staging directory
+      cp -R * $(Build.ArtifactStagingDirectory)
+    
+- task: AzureWebApp@1
   inputs:
-    pathtoPublish: 'build'  # Replace with the path to your built artifacts
-    artifactName: 'drop'
+    azureSubscription: 'eidlabdhavalthakkar'  # Specify your Azure subscription name or service connection
+    appName: 'eus2-dvl-09-16-2023-webapp'  # Specify the name of your Azure App Service
+    package: '$(Build.ArtifactStagingDirectory)/**/*.zip'  # Path to your published application artifacts
