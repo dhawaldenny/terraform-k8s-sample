@@ -7,10 +7,13 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 steps:
-
+- task: UseNode@1
+  inputs:
+    versionSpec: 14.x
+    checkLatest: true
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: 'build'  # Replace with the path to your built artifacts
