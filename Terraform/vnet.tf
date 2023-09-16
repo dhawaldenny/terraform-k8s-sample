@@ -23,16 +23,15 @@ resource "azurerm_virtual_network" "app_vnet" {
   name                = "${var.second_vnet_name}"
   location            = azurerm_resource_group.this.location
   resource_group_name = azurerm_resource_group.this.name
-  address_space       = ["10.2.0.0/16"]
+  address_space       = ["10.0.0.0/16"]
 }
 
-resource "azurerm_subnet" "app_vnet_internal" {
+resource "azurerm_subnet" "app_snet_internal" {
   name                 = "internal"
   virtual_network_name = azurerm_virtual_network.app_vnet.name
   resource_group_name  = azurerm_resource_group.this.name
-  address_prefixes     = ["10.2.0.0/22"]
+  address_prefixes     = ["10.0.0.0/22"]
 }
-
 
 resource "azurerm_virtual_network_peering" "vnet1_to_vnet2" {
   name                         = "${var.vnet_name}-to-${var.second_vnet_name}"

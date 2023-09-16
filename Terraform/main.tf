@@ -4,7 +4,7 @@ resource "azurerm_kubernetes_cluster" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
   dns_prefix          = var.cluster_name
-#  node_resource_group = "${var.cluster_name}-ng"
+  node_resource_group = "${var.cluster_name}-ng"
 
   default_node_pool {
     name           = "default"
@@ -37,5 +37,13 @@ resource "azurerm_kubernetes_cluster_node_pool" "win" {
   node_count     = var.node_count
   vm_size        = var.node_size
   os_type               = "Windows"
+  node_taints = []
+  tags = {}
+  fips_enabled = false 
+  enable_auto_scaling = false 
+  enable_host_encryption = false 
+  custom_ca_trust_enabled = false 
+  enable_node_public_ip = false
+  vnet_subnet_id = azurerm_subnet.internal.id
 }
 

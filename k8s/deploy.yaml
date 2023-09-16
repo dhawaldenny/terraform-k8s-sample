@@ -25,7 +25,8 @@ spec:
       containers:
         - name: admin
           imagePullPolicy: Always
-          image: dhawalthakkar/empid:v3
+          image: dhawalthakkar/empid:latest
+#          image: mcr.microsoft.com/dotnet/framework/samples:aspnetapp
           resources: {}
           ports:
             - containerPort: 80

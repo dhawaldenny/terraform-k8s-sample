@@ -1,0 +1,15 @@
+
+Windows
+docker build -t empid:v2 .
+docker run -d -it -p 8086:80 empid:v2
+
+Linux 
+docker build -t empid:v3 .
+docker run -d -it -p 8089:80 empid:v3
+
+docker tag empid:v3 dhawalthakkar/empid:v3
+docker login -u dhawalthakkar
+docker push dhawalthakkar/empid:v3
+
+
+az aks get-credentials --resource-group rg-dvl-09152023 --name aks-dvl-09152023  --file aks-config-ss
