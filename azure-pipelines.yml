@@ -10,14 +10,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
-jobs:
-- job: Deploy
-  dependsOn: Build
-  steps:
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: 'task1'
-      artifactName: 'drop'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: 'build'  # Replace with the path to your built artifacts
+    artifactName: 'drop'
